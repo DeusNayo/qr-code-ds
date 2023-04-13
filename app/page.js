@@ -1,5 +1,3 @@
-import Textbox from './components/Textbox.jsx'
-
 export default function Home() {
   
   return (

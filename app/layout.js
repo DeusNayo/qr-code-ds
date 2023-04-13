@@ -1,5 +1,5 @@
 import './globals.css'
-import Navbar from './components/Navbar'
+import { generateMetadata } from './users/[user]/page';
 
 export const metadata = {
   title: 'QR Gen',
@@ -11,7 +11,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className='bg-[#121C3F]'>
-        {logged && <Navbar />}
         {children}
     </body>
     </html>
