@@ -1,0 +1,11 @@
+[
+    {
+        "id": "1",
+        "username": "juan@gmail.com",
+        "password": "1234",
+        "content": {
+            "invites": "4",
+            "friends": "3"
+        }
+    }
+]

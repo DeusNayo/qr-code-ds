@@ -1,10 +1,25 @@
 "use client"
-import Link from "next/link";
 import { useState } from "react";
 
 function LoginScreen() {
   const [userName,setUsername] = useState("");
   const [userPswd,setUserPswd] = useState("");
+
+  const handleSubmit = async () => {
+    try {
+      const res = await fetch(`/api/users?username=${userName}&password=${userPswd}`);
+      const data = await res.json();
+      
+      console.log(data.id);
+      if(data.id  !== undefined) {
+        window.location.href = `/users/${data.id}`;
+      }
+    }
+    catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center  h-screen">
       <div className="m-12">
@@ -12,7 +27,7 @@ function LoginScreen() {
       </div>
         <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8">
         <h2 className="text-xl font-bold mb-4">Login</h2>
-        <form className="flex flex-col">
+        <form className="flex flex-col" onSubmit={handleSubmit}>
           <label className="mb-4 text-black">
             Email
             <input onChange={(e) => setUsername(e.target.value)} placeholder="Username/Email" type="email" className="w-full px-4 py-2 text-gray-700 bg-gray-200 rounded-lg focus:outline-none focus:bg-white focus:shadow-md mt-2" />
@@ -21,14 +36,7 @@ function LoginScreen() {
             Password
             <input onChange={(e) => setUserPswd(e.target.value)} placeholder="Password" type="password" className="w-full px-4 py-2 text-gray-700 bg-gray-200 rounded-lg focus:outline-none focus:bg-white focus:shadow-md mt-2" />
           </label>
-          <Link href={{
-            pathname: "api/users",
-            query: { user: {userName},
-                     password: {userPswd}
-                  }
-          }}>
             <button type="submit" className="block w-full px-4 py-2 mt-4 text-sm font-semibold text-center text-white transition-colors duration-300 bg-blue rounded-lg hover:bg-[#3E74C5] focus:outline-none focus:shadow-outline-green">Log in</button>
-          </Link>
         </form>
         <p className="mr-2 text-black flex justify-center pt-6">Don't have an account?</p>
         <div className="flex justify-center items-center">
